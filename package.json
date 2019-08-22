@@ -1,0 +1,52 @@
+{
+  "name": "react-native-forms",
+  "version": "0.0.1",
+  "description": "An easily customizable solution to make typed forms in react-native!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "react",
+    "react-native",
+    "react-component",
+    "react-native-component",
+    "form",
+    "forms",
+    "react-native-forms",
+    "typed-form",
+    "custom-form",
+    "styled-form",
+    "android",
+    "ios",
+    "ui"
+  ],
+  "author": "Oscar Colmenares",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/node": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-flow": "^7.0.0",
+    "@babel/register": "^7.5.5",
+    "babel-eslint": "^10.0.2",
+    "eslint": "^6.2.0",
+    "eslint-plugin-flowtype": "^4.2.0",
+    "eslint-plugin-react": "^7.14.3",
+    "flow": "^0.2.3",
+    "flow-bin": "^0.105.2",
+    "flow-typed": "^2.6.1",
+    "metro-react-native-babel-preset": "^0.56.0",
+    "prettier-eslint": "^9.0.0",
+    "prettier-eslint-cli": "^5.0.0"
+  },
+  "dependencies": {
+    "moment": "^2.20.1",
+    "react-native-elements": "^1.1.0",
+    "react-native-modal-selector": "^1.1.1",
+    "react-native-progress": "^3.6.0",
+    "recompose": "^0.30.0",
+    "uuid": "^3.3.3"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "env": {
+    "es6": true,
+    "node": true
+  },
+  "plugins": ["react", "flowtype"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:flowtype/recommended"
+  ],
+  "parser": "babel-eslint",
+  "rules": {
+    "comma-dangle": ["error", "always-multiline"],
+    "no-console": 0,
+    "semi": ["error", "never"],
+    "rules": {
+      "quotes": ["error", "single"]
+    },
+    "eqeqeq": ["error", "always"],
+    "no-trailing-spaces": "error",
+    "no-multi-spaces": [
+      "error",
+      { "exceptions": { "ImportDeclaration": true } }
+    ],
+    "no-loop-func": "error",
+    "no-case-declarations": "error",
+    "template-curly-spacing": "off",
+    "indent": "off"
+  },
+  "globals": {
+    "__DEV__": true
+  }
+}

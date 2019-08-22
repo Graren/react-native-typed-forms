@@ -1,5 +1,5 @@
 // @flow
-import { formTypes, answerTypes } from 'react-native-forms';
+import {formTypes, answerTypes} from 'react-native-forms';
 
 const multipleSelectOptions = [
   'Option 1',
@@ -39,10 +39,10 @@ const form = {
       content: {
         text: 'A multiple select field as well!',
         listText: 'Selection',
-        items: GoalType.map(opt => ({
+        items: multipleSelectOptions.map(opt => ({
           value: opt,
           text: opt,
-          id: `$multiple_select_identifier_${goal}`,
+          id: `$multiple_select_identifier_${opt}`,
         })),
       },
       options: {
@@ -69,18 +69,19 @@ const form = {
     },
     3: {
       type: formTypes.list,
-      key: 'list_identifier',
+      key: 'list-identifier',
       content: {
-        text: 'And we cannot leave lists out can we?',
-        listText: 'List stuff',
+        text: 'And a list component',
+        listText: 'list',
+        smallKey: 'list',
       },
       options: {
         childTypes: {
           0: {
             type: formTypes.string,
-            key: 'list_child_string',
+            key: 'list-identifier.string',
             options: {
-              placeHolder: 'Nanananananana',
+              placeHolder: 'some text',
             },
           },
         },

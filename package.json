@@ -43,9 +43,12 @@
   },
   "dependencies": {
     "moment": "^2.20.1",
+    "ramda": "^0.26.1",
     "react-native-elements": "^1.1.0",
     "react-native-modal-selector": "^1.1.1",
     "react-native-progress": "^3.6.0",
+    "react-native-slider": "^0.11.0",
+    "react-native-typography": "^1.4.1",
     "recompose": "^0.30.0",
     "uuid": "^3.3.3"
   }

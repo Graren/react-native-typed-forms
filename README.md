@@ -51,6 +51,7 @@ import { Form } from 'react-native-typed-form`
 On finish will provide a data value that can be provided AS IS to the value prop of the form, and the form itself will handle the data to preload the components.
 
 \*If you do not provide a value (that is, the value produced by the onFinish method after completing a form) it will always create a new blank form. Providing a value preloads with data from previous iterations.
+
 \*\*Extremely recommended to set as true always, this was an old mechanic that needs to be changed
 
 #### Model

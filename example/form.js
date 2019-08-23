@@ -19,7 +19,7 @@ const selectFieldOptions = [
 
 const form = {
   type: formTypes.form,
-  answer: answerTypes.multiple,
+  answer: answerTypes.single,
   fields: {
     0: {
       type: formTypes.string,

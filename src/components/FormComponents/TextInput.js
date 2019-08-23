@@ -1,12 +1,12 @@
 // @flow
-import React from 'react'
-import Component from './Component'
-import { View, Text, TextInput as TextInputNative } from 'react-native'
-import R from 'ramda'
-import { FormInput } from 'react-native-elements'
-import FormElementHeader from './FormElementHeader'
-import type { TextStyle } from '../../types/formTypes'
-import styles from '../../styles'
+import React from "react";
+import Component from "./Component";
+import { View, Text, TextInput as TextInputNative } from "react-native";
+import R from "ramda";
+import { Input } from "react-native-elements";
+import FormElementHeader from "./FormElementHeader";
+import type { TextStyle } from "../../types/formTypes";
+import styles from "../../styles";
 
 type Props = {
   value: string,
@@ -14,11 +14,11 @@ type Props = {
   color: string,
   formStyles: any,
   baseValue: {
-    value: string,
+    value: string
   },
   field: {
     content?: {
-      text: string,
+      text: string
     },
     options?: {
       multiline: boolean,
@@ -26,14 +26,13 @@ type Props = {
       label: string,
       default?: string,
       type?: string,
-      style?: TextStyle,
+      style?: TextStyle
     },
-    style?: Object,
-  },
-}
+    style?: Object
+  }
+};
 
 class TextInput extends Component<Props> {
-
   render() {
     const {
       value,
@@ -42,20 +41,20 @@ class TextInput extends Component<Props> {
       baseValue = null,
       field: {
         content = {
-          text: '',
+          text: ""
         },
         options = {
           multiline: false,
-          placeHolder: '',
-          label: '',
+          placeHolder: "",
+          label: "",
           numberOfLines: null,
           fullWidth: false,
-          type: 'default',
-          style: {},
+          type: "default",
+          style: {}
         },
-        style = {},
-      },
-    } = this.props
+        style = {}
+      }
+    } = this.props;
     return (
       <React.Fragment>
         <View style={styles.textInputLabelContainer}>
@@ -64,27 +63,26 @@ class TextInput extends Component<Props> {
             textStyle={formStyles.textStyle}
           />
         </View>
-        {options.label &&
-          options.label.length > 0 && (
-            <Text style={[styles.componentSubtitle, formStyles.textStyle]}>
-              {options.label}
-            </Text>
-          )}
+        {options.label && options.label.length > 0 && (
+          <Text style={[styles.componentSubtitle, formStyles.textStyle]}>
+            {options.label}
+          </Text>
+        )}
         {options.multiline ? (
           <View
             style={[
               styles.textInputContainerStyle,
               formStyles.elementContainerStyle,
               options.style ? options.style.textInputContainerStyle : {},
-              options.fullWidth ? { width: '100%' } : {},
+              options.fullWidth ? { width: "100%" } : {}
             ]}
           >
             <TextInputNative
               style={[
                 R.isEmpty(style) ? styles.textInputStyle : style,
-                options.style ? options.style.textInputStyle : {},
+                options.style ? options.style.textInputStyle : {}
               ]}
-              underlineColorAndroid={'transparent'}
+              underlineColorAndroid={"transparent"}
               onChangeText={onChange}
               value={
                 value ? value : baseValue ? baseValue.value : options.default
@@ -97,18 +95,18 @@ class TextInput extends Component<Props> {
             />
           </View>
         ) : (
-          <FormInput
+          <Input
             containerStyle={[
               styles.textInputContainerStyle,
               formStyles.elementContainerStyle,
               options.style ? options.style.textInputContainerStyle : {},
-              options.fullWidth ? { width: '100%' } : {},
+              options.fullWidth ? { width: "100%" } : {}
             ]}
             inputStyle={[
               R.isEmpty(style) ? styles.textInputStyle : style,
-              options.style ? options.style.textInputStyle : {},
+              options.style ? options.style.textInputStyle : {}
             ]}
-            underlineColorAndroid={'transparent'}
+            underlineColorAndroid={"transparent"}
             onChangeText={onChange}
             value={
               value ? value : baseValue ? baseValue.value : options.default
@@ -118,8 +116,8 @@ class TextInput extends Component<Props> {
           />
         )}
       </React.Fragment>
-    )
+    );
   }
 }
 
-export default TextInput
+export default TextInput;

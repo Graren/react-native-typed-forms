@@ -41,22 +41,33 @@ type State = {
   formProgress: number,
 }
 
-// TODO: Instead of index replace with id of object
 class Form extends React.PureComponent<FormProps, State> {
   constructor(props: Props) {
     super(props)
     this.model = props.model
-    const editionIndex = props.editionIndex
     const indexesMap = mapIndexesToKeys(this.model)
     const storableValue = props.value || []
+    const editionId = props.editionId || null
+
+    let editionElementIndex = editionId
+      ? storableValue.findIndex(el => el._id === editionId)
+      : null
+
     const formIteration =
-      editionIndex || editionIndex === 0 ? editionIndex : storableValue.length
-    const isEditing = editionIndex || editionIndex === 0 ? true : false
+      editionId && editionElementIndex !== -1
+        ? editionElementIndex
+        : storableValue.length
+
+    const isEditing = editionId && editionElementIndex !== -1 ? true : false
+
     const fieldIndex = 0
+
     const value = getValueFromAnswerType(props, props.model, formIteration)
+
     const currentElementValue = value[indexesMap[fieldIndex]]
       ? value[indexesMap[fieldIndex]].value
       : null
+
     this.state = {
       value,
       fieldIndex,
@@ -72,14 +83,20 @@ class Form extends React.PureComponent<FormProps, State> {
   }
 
   componentDidUpdate = prevProps => {
-    const { editionIndex: previousEditionIndex } = prevProps
-    const { editionIndex } = this.props
-    const isEditing = editionIndex || editionIndex === 0 ? true : false
-    if (isEditing && previousEditionIndex !== editionIndex) {
+    const { editionId: previousEditionId, baseValues: previousBase } = prevProps
+    const { editionId, baseValues } = this.props
+    const { storableValue } = this.state
+
+    let editionElementIndex = editionId
+      ? storableValue.findIndex(el => el._id === editionId)
+      : null
+
+    const isEditing = editionId && editionElementIndex !== -1 ? true : false
+    if (isEditing && previousEditionId !== editionId) {
       const value = getValueFromAnswerType(
         this.props,
         this.props.model,
-        editionIndex
+        editionElementIndex
       )
       const { indexesMap } = this.state
       const fieldIndex = 0
@@ -88,10 +105,26 @@ class Form extends React.PureComponent<FormProps, State> {
         : null
       this.setState({
         isEditing: true,
-        formIteration: editionIndex,
+        formIteration: editionElementIndex,
         fieldIndex,
         value,
         currentElementValue,
+        isFormFinished: false,
+      })
+      return
+    }
+
+    if (isEditing && baseValues && !previousBase) {
+      this.setState({
+        isEditing: false,
+        formIteration: storableValue.length,
+        fieldIndex: 0,
+        value: getValueFromAnswerType(
+          this.props,
+          this.props.model,
+          storableValue.length
+        ),
+        currentElementValue: null,
         isFormFinished: false,
       })
       return
@@ -104,23 +137,23 @@ class Form extends React.PureComponent<FormProps, State> {
     const defaultValue = currentField.options.default
     const newField = value[indexesMap[fieldIndex]]
       ? {
-        ...value[indexesMap[fieldIndex]],
-        value: currentElementValue || defaultValue,
-        key: currentField.key,
-        index: fieldIndex,
-        timestamp: moment().format(),
-        model: currentField,
-      }
+          ...value[indexesMap[fieldIndex]],
+          value: currentElementValue || defaultValue,
+          key: currentField.key,
+          index: fieldIndex,
+          timestamp: moment().format(),
+          model: currentField,
+        }
       : {
-        ...value[indexesMap[fieldIndex]],
-        type: currentField.type,
-        value: currentElementValue || defaultValue,
-        key: currentField.key,
-        index: fieldIndex,
-        timestamp: moment().format(),
-        model: currentField,
-        _id: uuid(),
-      }
+          ...value[indexesMap[fieldIndex]],
+          type: currentField.type,
+          value: currentElementValue || defaultValue,
+          key: currentField.key,
+          index: fieldIndex,
+          timestamp: moment().format(),
+          model: currentField,
+          _id: uuid(),
+        }
     const newValue = {
       ...value,
       [currentField.key]: newField,
@@ -177,26 +210,26 @@ class Form extends React.PureComponent<FormProps, State> {
 
     return !storableValue || storableValue.length === 0
       ? [
-        {
-          ...value,
-          _id: uuid(),
-          created_at: moment().format(),
-          _meta: {
-            version: 1,
+          {
+            ...value,
+            _id: uuid(),
+            created_at: moment().format(),
+            _meta: {
+              version: 1,
+            },
           },
-        },
-      ]
+        ]
       : [
-        {
-          ...(storableValue[0] || {}),
-          ...value,
-          updated_at: moment().format(),
-          _meta: {
-            ...(storableValue[0]._meta || {}),
-            version: storableValue[0]._meta.version + 1,
+          {
+            ...(storableValue[0] || {}),
+            ...value,
+            updated_at: moment().format(),
+            _meta: {
+              ...(storableValue[0]._meta || {}),
+              version: storableValue[0]._meta.version + 1,
+            },
           },
-        },
-      ]
+        ]
   }
 
   _handleMultipleAnswerStorage = value => {
@@ -278,55 +311,55 @@ class Form extends React.PureComponent<FormProps, State> {
     const { value, storableValue, formIteration, isEditing } = this.state
     const newState = !isEditing
       ? {
-        fieldIndex: payload,
-        storableValue: [
-          ...storableValue,
-          {
-            ...value,
-            _id: uuid(),
-            created_at: moment().format(),
-            _meta: {
-              version: 1,
+          fieldIndex: payload,
+          storableValue: [
+            ...storableValue,
+            {
+              ...value,
+              _id: uuid(),
+              created_at: moment().format(),
+              _meta: {
+                version: 1,
+              },
             },
-          },
-        ],
-        value:
+          ],
+          value:
             this.props.value && this.props.value[formIteration + 1]
               ? this.props.value[formIteration + 1]
               : {},
-        formIteration: formIteration + 1,
-        isEditing: false,
-        formProgress: 0,
-      }
+          formIteration: formIteration + 1,
+          isEditing: false,
+          formProgress: 0,
+        }
       : {
-        fieldIndex: payload,
-        storableValue: [
-          ...storableValue.filter(v => v._id !== value._id),
-          {
-            ...storableValue[formIteration],
-            ...value,
-            updated_at: moment().format(),
-            _meta: {
-              ...(storableValue[formIteration]._meta || {}),
-              version: storableValue[formIteration]._meta.version + 1,
+          fieldIndex: payload,
+          storableValue: [
+            ...storableValue.filter(v => v._id !== value._id),
+            {
+              ...storableValue[formIteration],
+              ...value,
+              updated_at: moment().format(),
+              _meta: {
+                ...(storableValue[formIteration]._meta || {}),
+                version: storableValue[formIteration]._meta.version + 1,
+              },
             },
-          },
-        ],
-        value:
+          ],
+          value:
             this.props.value && this.props.value[storableValue.length]
               ? this.props.value[storableValue.length]
               : {},
-        formIteration: storableValue.length,
-        isEditing: false,
-        formProgress: 0,
-      }
+          formIteration: storableValue.length,
+          isEditing: false,
+          formProgress: 0,
+        }
     this.setState(newState)
   }
 
   _buttonHandler = ({ action }: { action: { type: string, payload: any } }) => {
     switch (action.type) {
-    case actionTypes.GO_TO:
-      this._handleGoTo(action.payload)
+      case actionTypes.GO_TO:
+        this._handleGoTo(action.payload)
     }
   }
 
@@ -371,11 +404,13 @@ class Form extends React.PureComponent<FormProps, State> {
       disableProgress = false,
       baseValues = {},
       disableAnswers = false,
+      customProps = {},
     } = this.props
     const currentField = this.model.fields[fieldIndex] || []
     const isFieldRequired =
       currentField && currentField.options && currentField.options.required
     const baseValue = baseValues[currentField.key]
+    const currentCustomProps = customProps && customProps[currentField.key]
     return (
       <View style={styles.container}>
         {CloseButton ? <CloseButton /> : null}
@@ -398,6 +433,7 @@ class Form extends React.PureComponent<FormProps, State> {
             allFields={this.model.fields}
             formStyles={formStyles}
             baseValue={baseValue}
+            customProps={currentCustomProps}
           />
         </View>
         {(!disableAnswers || DEBUG_DISPLAY) && (
@@ -424,22 +460,22 @@ class Form extends React.PureComponent<FormProps, State> {
             isFieldRequired &&
             isFormValueInvalid(currentField, currentElementValue)
           ) && (
-              <TextFormButton
-                onPress={
-                  fieldIndex < numberOfFields - 1 ? this._onPress : this._onFinish
-                }
-                styles={{
-                  button: [styles.formButton, formStyles.buttonContainerStyle],
-                  text: styles.formButtonText,
-                }}
-                formStyles={formStyles}
-                disabled={
-                  isFieldRequired &&
+            <TextFormButton
+              onPress={
+                fieldIndex < numberOfFields - 1 ? this._onPress : this._onFinish
+              }
+              styles={{
+                button: [styles.formButton, formStyles.buttonContainerStyle],
+                text: styles.formButtonText,
+              }}
+              formStyles={formStyles}
+              disabled={
+                isFieldRequired &&
                 isFormValueInvalid(currentField, currentElementValue)
-                }
-                text={getButtonText(fieldIndex, numberOfFields)}
-              />
-            )}
+              }
+              text={getButtonText(fieldIndex, numberOfFields)}
+            />
+          )}
         </View>
       </View>
     )

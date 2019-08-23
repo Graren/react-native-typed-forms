@@ -54,7 +54,6 @@ const TextElement = ({
       {text && (
         <View
           style={[
-            styles.container,
             styles.indented,
             styles.row,
             styles.listTextAnswersContainer,

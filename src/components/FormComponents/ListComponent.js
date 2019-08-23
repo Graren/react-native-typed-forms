@@ -207,13 +207,13 @@ class ListComponent extends React.PureComponent<Props, State> {
 
     return (
       <View style={styles.container}>
-        <View style={styles.container}>
+        <View>
           <FormElementHeader
             text={content.text}
             textStyle={formStyles.textStyle}
           />
         </View>
-        <View style={[styles.container, styles.listFormContainer]}>
+        <View style={[styles.listFormContainer]}>
           <View style={styles.listElementContainer}>
             {childTypes &&
               Object.keys(childTypes).map(key => {
@@ -289,11 +289,9 @@ class ListComponent extends React.PureComponent<Props, State> {
           this.renderReferencedValue(referencedValue)}
         <View style={[styles.container, styles.listContentContainer]}>
           {value && (
-            <View style={styles.container}>
-              <Text style={[styles.textElementText, formStyles.textStyle]}>
-                {`${content.listText}`}:
-              </Text>
-            </View>
+            <Text style={[styles.textElementText, formStyles.textStyle]}>
+              {`${content.listText}`}:
+            </Text>
           )}
           {value &&
             value.map((val, index) => (

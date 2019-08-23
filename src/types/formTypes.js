@@ -148,7 +148,7 @@ export type FormProps = {
   onFinish: (any) => void,
   disableAnswers?: boolean,
   CloseButton: () => React.node,
-  editionIndex: boolean,
+  editionId: string,
   textAndButtonColor: string,
   disableProgress?: false,
   baseValues?: BaseValue,
@@ -165,6 +165,9 @@ export type FormProps = {
   extra: {
     step: string,
   },
+  customProps?: {
+    [x: string]: any
+  }
 }
 
 export type LogAction = {

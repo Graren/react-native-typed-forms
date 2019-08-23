@@ -1,5 +1,6 @@
 // @flow
 import React from 'react'
+import Component from './Component'
 import { View, Text, TextInput as TextInputNative } from 'react-native'
 import R from 'ramda'
 import { FormInput } from 'react-native-elements'
@@ -31,32 +32,7 @@ type Props = {
   },
 }
 
-class TextInput extends React.Component<Props> {
-  componentDidMount() {
-    const { value, onChange, baseValue } = this.props
-    if (!value && baseValue && baseValue.value !== undefined)
-      onChange(baseValue.value)
-  }
-
-  componentDidUpdate(prevProps) {
-    const { value, onChange, baseValue } = this.props
-    const { baseValue: previousBase } = prevProps
-    if (!value && baseValue && baseValue.value !== undefined) {
-      onChange(baseValue.value)
-      return
-    }
-    if (
-      value &&
-      baseValue &&
-      baseValue.value !== undefined &&
-      baseValue.value !== null &&
-      previousBase &&
-      previousBase.value !== undefined &&
-      previousBase.value !== null
-    ) {
-      onChange(baseValue.value)
-    }
-  }
+class TextInput extends Component<Props> {
 
   render() {
     const {

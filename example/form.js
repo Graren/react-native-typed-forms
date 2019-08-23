@@ -1,5 +1,5 @@
 // @flow
-import {formTypes, answerTypes} from 'react-native-forms';
+import {formTypes, answerTypes} from 'react-native-typed-forms';
 
 const multipleSelectOptions = [
   'Option 1',

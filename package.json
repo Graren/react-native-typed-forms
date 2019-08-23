@@ -1,5 +1,5 @@
 {
-  "name": "react-native-forms",
+  "name": "react-native-typed-forms",
   "version": "0.0.1",
   "description": "An easily customizable solution to make typed forms in react-native!",
   "main": "index.js",

@@ -16,7 +16,7 @@ import {
   StatusBar,
   TouchableOpacity,
 } from 'react-native';
-import {Form} from 'react-native-forms';
+import {Form} from 'react-native-typed-forms';
 import model from './form';
 
 const Header = () => (

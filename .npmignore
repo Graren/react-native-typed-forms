@@ -6,4 +6,7 @@ npm-debug.log
 node_modules
 
 # Example directory
-examples
+example
+
+# Types
+flow-typed

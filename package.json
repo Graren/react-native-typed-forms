@@ -1,6 +1,6 @@
 {
   "name": "react-native-typed-forms",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "An easily customizable solution to make typed forms in react-native!",
   "main": "index.js",
   "scripts": {
@@ -21,6 +21,9 @@
     "ios",
     "ui"
   ],
+  "repository": {
+    "url": "https://github.com/Graren/react-native-typed-forms"
+  },
   "author": "Oscar Colmenares",
   "license": "MIT",
   "devDependencies": {

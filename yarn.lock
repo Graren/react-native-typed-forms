@@ -869,11 +869,6 @@
     universal-user-agent "^2.0.0"
     url-template "^2.0.8"
 
-"@react-native-community/slider@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@react-native-community/slider/-/slider-2.0.0.tgz#3d68f68db185fb44d812f66d05d2d7842adfd3db"
-  integrity sha512-ORokHwQnwXzas+PYQO+G8IxArRVtw2xZdx2C0wV+oQiKbhDl8DBcM6gGT6dNB3VGxVNesWX/3K0IIfVjp4zH0A==
-
 "@sindresorhus/is@^0.7.0":
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-0.7.0.tgz#9a06f4f137ee84d7df0460c1fdb1135ffa6c50fd"
@@ -2405,9 +2400,9 @@ http-proxy-agent@^2.1.0:
     debug "3.1.0"
 
 https-proxy-agent@^2.2.0:
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/https-proxy-agent/-/https-proxy-agent-2.2.2.tgz#271ea8e90f836ac9f119daccd39c19ff7dfb0793"
-  integrity sha512-c8Ndjc9Bkpfx/vCJueCPy0jlP4ccCCSNDp8xwCZzPjKJUm+B+u9WX2x98Qx4n1PiMNTWo3D7KK5ifNV/yJyRzg==
+  version "2.2.4"
+  resolved "https://registry.yarnpkg.com/https-proxy-agent/-/https-proxy-agent-2.2.4.tgz#4ee7a737abd92678a293d9b34a1af4d0d08c787b"
+  integrity sha512-OmvfoQ53WLjtA9HeYP9RNrWMJzzAz1JGaSFr1nijg0PVR1JaD/xbJq1mdEIIlxGpXp9eSe/O2LgU9DJmTPd0Eg==
   dependencies:
     agent-base "^4.3.0"
     debug "^3.1.0"

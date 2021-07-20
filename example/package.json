@@ -10,7 +10,7 @@
   "dependencies": {
     "@react-native-community/cli": "^2.9.0",
     "react": "16.8.6",
-    "react-native": "0.60.5",
+    "react-native": "0.62.3",
     "react-native-svg": "^9.6.4",
     "react-native-svg-icon": "^0.8.1",
     "react-native-typed-forms": "0.0.1",
